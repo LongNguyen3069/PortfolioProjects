@@ -119,6 +119,7 @@ LEFT JOIN YearlyViews AS pre
 	ON cur.year = pre.year + 1
 ORDER BY CurrentYear;
 
+--Creating Views for later Visualization
 CREATE VIEW videos_performance_bins_of_year AS
 SELECT
 	(YEAR(published_date)/5)*5 AS StartYrOf5yrPeriod,
@@ -128,4 +129,5 @@ SELECT
 	SUM(comments) AS total_comments,
 	(SUM(views) + SUM(likes) + SUM(comments)) AS total_audience_participation
 FROM MrBeastPortfolio..Mr_Beast_data
+
 GROUP BY (YEAR(published_date)/5)*5;
