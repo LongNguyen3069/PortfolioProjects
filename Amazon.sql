@@ -153,4 +153,93 @@ AVG((p.actual_price - p.discount_price)) OVER(PARTITION BY r.brand) AS avg_net_p
 AVG(r.rating) OVER(PARTITION BY r.brand) AS avg_rating
 FROM AmazonProject..Amazon_ratings AS R
 JOIN AmazonProject..Amazon_Price AS P
-	ON R.name = P.name
+	ON R.name = P.name;
+
+/* 
+
+Queries to use for Tableau
+
+*/
+
+-- KPI summary
+SELECT
+	COUNT(r.name) AS total_products,
+	AVG(p.discount_price) AS avg_discount_price,
+	AVG(p.actual_price) AS avg_actual_price,
+	AVG(r.rating) AS avg_rating,
+	SUM(r.no_of_ratings) AS total_number_ratings,
+	ROUND(
+		100 * SUM(CASE WHEN Sentiment = 'Positive' THEN 1 
+		ELSE 0
+		END) / COUNT(*), 2) AS Percent_Positive_Reviews
+FROM AmazonProject..Amazon_Ratings AS r
+JOIN AmazonProject..Amazon_Price AS p
+	ON r.name = p.name
+
+-- Average Actual Price vs  Average Discount Price for the top 50 rated brands
+SELECT
+	TOP(50) p.brand,
+	AVG(p.Actual_Price) AS avg_actual_price, 
+	AVG(p.discount_price) AS avg_discount_price, 
+	SUM(no_of_ratings) AS total_ratings
+FROM AmazonProject..Amazon_Price AS p
+JOIN AmazonProject..Amazon_Ratings AS r
+	ON p.name = r.name
+GROUP BY p.brand
+ORDER BY SUM(no_of_ratings) DESC
+
+-- Average Discount Percentage by Brand (top 50)
+SELECT
+	TOP(50) p.brand,
+	AVG(ROUND(((actual_price - discount_price)/actual_price)*100, 2)) AS avg_discount_percentage,
+	SUM(no_of_ratings) AS total_ratings
+FROM AmazonProject..Amazon_Price AS p
+JOIN AmazonProject..Amazon_Ratings AS r
+	ON p.name = r.name
+GROUP BY p.brand
+ORDER BY SUM(no_of_ratings) DESC
+
+-- Number of Ratings by Brand
+SELECT 
+	TOP(50) p.brand, 
+	SUM(no_of_ratings) AS total_number_of_ratings
+FROM AmazonProject..Amazon_Price AS p
+JOIN AmazonProject..Amazon_Ratings AS r
+	ON p.name = r.name
+GROUP BY p.brand
+ORDER BY SUM(no_of_ratings) DESC
+
+-- Average Rating by Brand
+SELECT
+	TOP(50) p.brand,
+	avg(rating) AS avg_rating
+FROM AmazonProject..Amazon_Price AS p
+JOIN AmazonProject..Amazon_Ratings AS r
+	ON p.name = r.name
+GROUP BY p.brand
+ORDER BY SUM(no_of_ratings) DESC
+
+
+-- Sentiment Distribution
+SELECT
+	Sentiment,
+	COUNT(*) AS Review_Count,
+	ROUND(
+        100.0 * COUNT(*) / SUM(COUNT(*)) OVER (),
+        2
+    ) AS Sentiment_Percentage
+FROM AmazonProject..Amazon_Ratings
+GROUP BY Sentiment
+ORDER BY Review_Count
+
+-- For later Visualization
+CREATE VIEW vw_sentiment_distribution AS
+SELECT
+    Sentiment,
+    COUNT(*) AS Review_Count,
+    ROUND(
+        100.0 * COUNT(*) / SUM(COUNT(*)) OVER (),
+        2
+    ) AS Sentiment_Percentage
+FROM AmazonProject..Amazon_Ratings
+GROUP BY Sentiment;
