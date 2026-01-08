@@ -119,7 +119,6 @@ LEFT JOIN YearlyViews AS pre
 	ON cur.year = pre.year + 1
 ORDER BY CurrentYear;
 
---Creating Views for later Visualization
 CREATE VIEW videos_performance_bins_of_year AS
 SELECT
 	(YEAR(published_date)/5)*5 AS StartYrOf5yrPeriod,
@@ -129,5 +128,130 @@ SELECT
 	SUM(comments) AS total_comments,
 	(SUM(views) + SUM(likes) + SUM(comments)) AS total_audience_participation
 FROM MrBeastPortfolio..Mr_Beast_data
-
 GROUP BY (YEAR(published_date)/5)*5;
+
+/*
+
+Queries to use for Tableau
+
+*/
+
+-- Video's KPI
+SELECT
+	COUNT(*) AS total_videos,
+	SUM(views) AS total_views,
+	AVG(likes) AS avg_likes_per_vid,
+	AVG(comments) AS avg_comments_per_vid,
+	AVG(duration_sec / 60) AS avg_video_duration_mins
+FROM MrBeastPortfolio..Mr_Beast_data
+
+SELECT
+	YEAR(published_date) AS publish_year,
+	SUM(views) AS total_views,
+	SUM(likes) AS total_likes,
+	SUM(comments) AS total_comments
+FROM MrBeastPortfolio..Mr_Beast_data
+GROUP BY YEAR(published_date)
+ORDER BY YEAR(published_date)
+
+-- Video Performance
+-- top 10 videos based on views
+SELECT
+	TOP(10) title,
+	SUM(views) AS total_views
+FROM MrBeastPortfolio..Mr_Beast_data
+WHERE status = 'video'
+GROUP BY title
+ORDER BY total_views DESC
+
+-- Top 10 shorts based on views
+SELECT
+	TOP(10) title,
+	SUM(views) AS total_views
+FROM MrBeastPortfolio..Mr_Beast_data
+WHERE status = 'shorts'
+GROUP BY title
+ORDER BY total_views DESC
+
+-- Bottom 10 videos based on views
+SELECT
+	TOP(10) title,
+	SUM(views) AS total_views
+FROM MrBeastPortfolio..Mr_Beast_data
+GROUP BY title
+ORDER BY total_views
+
+-- Views vs Video Duration (mins)
+SELECT
+    title,
+    duration_sec / 60.0 AS duration_minutes,
+    views
+FROM MrBeastPortfolio..Mr_Beast_data
+
+
+-- Views vs likes
+
+SELECT
+	title,
+	views,
+	likes
+FROM MrBeastPortfolio..Mr_Beast_data
+
+-- Performance by video type
+
+SELECT
+	status,
+	SUM(views) AS total_views,
+	AVG(likes) AS avg_likes,
+	AVG(comments) AS avg_comments,
+	AVG(duration_sec / 60) AS avg_duration_of_video_mins
+FROM MrBeastPortfolio..Mr_Beast_data
+GROUP BY status
+
+-- Dashboard 3 Engagement and Audience Behavior
+SELECT
+	title,
+	ROUND((likes/views)*100, 2) AS likes_to_view_ratio,
+	ROUND((comments/views)*100, 2) AS comment_to_view_ratio,
+	ROUND(((likes+comments)/views)*100, 2) AS engagement_by_video
+FROM MrBeastPortfolio..Mr_Beast_data
+
+-- Dashboard 4 Upload Strategy and Timing Analysis
+-- videos DOW vs videos_published
+SELECT
+	DATENAME(WEEKDAY, published_date) AS day_of_week,
+	COUNT(*) AS videos_published
+FROM MrBeastPortfolio..Mr_Beast_data
+GROUP BY DATENAME(WEEKDAY, published_date)
+ORDER BY videos_published DESC
+
+-- Views by Publish day (DOW performance)
+
+SET DATEFIRST 1; -- Monday = 1
+
+SELECT
+	DATEPART(WEEKDAY, published_date) AS dow_num,
+	DATENAME(WEEKDAY, published_date) AS publish_day,
+	COUNT(*) AS videos_published,
+	ROUND(AVG(views),0) AS avg_views,
+	SUM(views) AS total_views
+FROM MrBeastPortfolio..Mr_Beast_data
+GROUP BY
+	DATEPART(WEEKDAY, published_date),
+	DATENAME(WEEKDAY, published_date)
+ORDER BY dow_num
+
+-- Upload Frequency vs AVG views
+
+SELECT
+	YEAR(published_date) AS publish_year,
+	MONTH(published_date) AS publish_month,
+	COUNT(*) AS videos_uploaded,
+	ROUND(AVG(views),0) AS avg_views
+FROM MrBeastPortfolio..Mr_Beast_data
+GROUP BY
+	YEAR(published_date),
+	MONTH(published_date)
+ORDER BY 
+	publish_year,
+	publish_month
