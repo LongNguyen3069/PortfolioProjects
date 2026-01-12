@@ -1,4 +1,4 @@
-📦 Amazon Sales & Reviews SQL Analysis
+ Amazon Sales & Reviews SQL Analysis
 📌 Project Overview
 
 This project analyzes an Amazon Sales and Reviews dataset using SQL Server (T-SQL) to uncover insights related to product pricing, customer ratings, and sentiment trends across brands.
@@ -13,11 +13,11 @@ SQL Server Management Studio (SSMS)
 
 Tableau Public (for visualization)
 
-📊 Dataset Description
+🔹 Dataset Description
 
 The project uses two tables:
 
-1️⃣ Amazon_Ratings
+1️🔹 Amazon_Ratings
 
 Contains product review and sentiment data:
 
@@ -35,7 +35,7 @@ Cleaned_Review_Text
 
 Sentiment (Positive / Negative)
 
-2️⃣ Amazon_Price
+2️🔹 Amazon_Price
 
 Contains pricing data:
 
@@ -47,7 +47,7 @@ Actual_Price
 
 Discount_Price
 
-🧠 Skills Demonstrated
+🔹 Skills Demonstrated
 
 Data exploration & validation
 
@@ -70,7 +70,7 @@ Data type conversion
 Business-driven analysis
 
 🔍 Key Analyses Performed
-⭐ Ratings & Sentiment Analysis
+🔹 Ratings & Sentiment Analysis
 
 Average rating by brand
 
@@ -82,7 +82,7 @@ Brands with the highest positive ratings
 
 Sentiment distribution percentages
 
-💰 Pricing Analysis
+🔹 Pricing Analysis
 
 Net price calculation (Actual – Discount)
 
@@ -92,7 +92,7 @@ Discount percentage by brand
 
 Price comparison vs customer ratings
 
-🏷️ Brand-Level Insights
+🔹 Brand-Level Insights
 
 Total number of ratings by brand
 
@@ -100,7 +100,7 @@ Average rating by brand
 
 Relationship between pricing, discounts, and sentiment
 
-🧱 Advanced SQL Features Used
+🔹 Advanced SQL Features Used
 ✔ Common Table Expressions (CTEs)
 
 Used to simplify complex window function calculations and brand-level aggregations.
@@ -117,7 +117,7 @@ total_net_price
 
 vw_sentiment_distribution
 
-📈 Tableau Integration
+🔹 Tableau Integration
 
 This project was designed with visualization in mind. SQL queries were structured to directly power dashboards, including:
 
@@ -135,7 +135,7 @@ Sentiment breakdown
 ├── Amazon_SQL_Project.sql
 ├── README.md
 
-🚀 How to Run This Project
+🔹 How to Run This Project
 
 Import the dataset into SQL Server
 
