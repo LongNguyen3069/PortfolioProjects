@@ -1,11 +1,11 @@
- Amazon Sales & Reviews SQL Analysis
-📌 Project Overview
+Amazon Sales & Reviews SQL Analysis
+Project Overview
 
 This project analyzes an Amazon Sales and Reviews dataset using SQL Server (T-SQL) to uncover insights related to product pricing, customer ratings, and sentiment trends across brands.
 
-The goal of this project is to demonstrate real-world SQL skills such as data exploration, aggregation, joins, window functions, CTEs, temp tables, and view creation — while producing analysis-ready outputs for Tableau visualizations.
+The goal is to demonstrate real-world SQL skills such as data exploration, aggregation, joins, window functions, CTEs, temp tables, and view creation, while producing analysis-ready outputs for Tableau visualizations.
 
-🛠️ Tools & Technologies
+Tools & Technologies
 
 SQL Server (T-SQL)
 
@@ -13,11 +13,13 @@ SQL Server Management Studio (SSMS)
 
 Tableau Public (for visualization)
 
-🔹 Dataset Description
+Git & GitHub
+
+Dataset Description
 
 The project uses two tables:
 
-1️🔹 Amazon_Ratings
+1. Amazon_Ratings
 
 Contains product review and sentiment data:
 
@@ -35,7 +37,7 @@ Cleaned_Review_Text
 
 Sentiment (Positive / Negative)
 
-2️🔹 Amazon_Price
+2. Amazon_Price
 
 Contains pricing data:
 
@@ -47,15 +49,15 @@ Actual_Price
 
 Discount_Price
 
-🔹 Skills Demonstrated
+Skills Demonstrated
 
-Data exploration & validation
+Data exploration and validation
 
 Aggregate functions (AVG, SUM, COUNT)
 
-Filtering & sorting
+Filtering and sorting
 
-JOINs across multiple tables
+Joins across multiple tables
 
 Window functions (OVER, PARTITION BY)
 
@@ -69,8 +71,8 @@ Data type conversion
 
 Business-driven analysis
 
-🔍 Key Analyses Performed
-🔹 Ratings & Sentiment Analysis
+Key Analyses Performed
+Ratings & Sentiment Analysis
 
 Average rating by brand
 
@@ -82,7 +84,7 @@ Brands with the highest positive ratings
 
 Sentiment distribution percentages
 
-🔹 Pricing Analysis
+Pricing Analysis
 
 Net price calculation (Actual – Discount)
 
@@ -92,7 +94,7 @@ Discount percentage by brand
 
 Price comparison vs customer ratings
 
-🔹 Brand-Level Insights
+Brand-Level Insights
 
 Total number of ratings by brand
 
@@ -100,16 +102,16 @@ Average rating by brand
 
 Relationship between pricing, discounts, and sentiment
 
-🔹 Advanced SQL Features Used
-✔ Common Table Expressions (CTEs)
+Advanced SQL Features Used
+Common Table Expressions (CTEs)
 
-Used to simplify complex window function calculations and brand-level aggregations.
+Simplified complex window function calculations and brand-level aggregations.
 
-✔ Temporary Tables
+Temporary Tables
 
-Used to calculate average net prices and discount percentages efficiently.
+Calculated average net prices and discount percentages efficiently.
 
-✔ Views
+Views
 
 Created reusable views for Tableau:
 
@@ -117,9 +119,9 @@ total_net_price
 
 vw_sentiment_distribution
 
-🔹 Tableau Integration
+Tableau Integration
 
-This project was designed with visualization in mind. SQL queries were structured to directly power dashboards, including:
+This project was designed for visualization. SQL queries were structured to directly power dashboards, including:
 
 KPI summary
 
@@ -131,11 +133,11 @@ Rating distribution
 
 Sentiment breakdown
 
-📁 Repository Structure
+Repository Structure
 ├── Amazon_SQL_Project.sql
 ├── README.md
 
-🔹 How to Run This Project
+How to Run This Project
 
 Import the dataset into SQL Server
 
@@ -147,18 +149,18 @@ Connect Tableau to SQL Server or created views
 
 Build dashboards using the provided queries
 
-📌 Key Takeaways
+Key Takeaways
 
-Brands with extreme ratings (1⭐ or 5⭐) show clear sentiment patterns
+Brands with extreme ratings (1 or 5) show clear sentiment patterns
 
 Heavy discounting does not always correlate with higher ratings
 
 Sentiment analysis helps identify product improvement opportunities
 
-Window functions and views greatly simplify BI workflows
+Window functions and views simplify BI workflows
 
-👤 Author
+Author
 
 Long Nguyen
 Aspiring Data Analyst
-📊 SQL | Tableau | Data Analytics
+SQL | Tableau | Data Analytics
